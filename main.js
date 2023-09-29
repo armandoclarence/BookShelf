@@ -52,7 +52,7 @@ inputBook.addEventListener("submit",function(){
     let books = JSON.parse(localStorage.getItem(shelfKey)) 
     let titleBook = titles.value
     let authorBook = authors.value
-    let yearBook = years.value
+    let yearBook = parseInt(years.value)
     let isCompleteBook = isCompleted.checked 
     let book = generateObjectBook(id,titleBook,authorBook,yearBook,isCompleteBook)
     books.push(book)
@@ -84,7 +84,7 @@ function editBook(book,id){
         let {title, author, year} = book
         let titleEdited = titleInput.value
         let authorEdited = authorInput.value
-        let yearEdited = yearInput.value
+        let yearEdited = parseInt(yearInput.value)
         title = titleEdited || title
         author = authorEdited || author
         year = yearEdited || year
