@@ -191,25 +191,19 @@ const searchBook = document.querySelector('#searchBook')
 searchBook.addEventListener('submit',function(e){
     e.preventDefault()
     let title = searchInput.value
-    let capitalize = searchInput.value.charAt(0).toUpperCase()
-    let titleBook = capitalize + title.slice(1)
     let booksShelf = JSON.parse(localStorage.getItem(shelfKey))
     let [...booksArticle] = document.querySelectorAll('.book_item')
+    let books = booksShelf.filter(book => 
+       book.title.toLowerCase().includes(title.toLowerCase()) 
+    )
+    booksArticle.map(bookArticle => {
+        let parent = bookArticle.parentNode
+        parent.removeChild(bookArticle)
+    })
     if(title){
-        let books = booksShelf.filter(book => 
-           book.title.includes(titleBook) 
-        )
         books.map(book => addBook(book))
-        booksArticle.map(bookArticle => {
-            let parent = bookArticle.parentNode
-            parent.removeChild(bookArticle)
-        })
     }
     else{
-        booksArticle.map(bookArticle => {
-            let parent = bookArticle.parentNode
-            parent.removeChild(bookArticle)
-        })
         booksShelf.map(bookShelf => addBook(bookShelf))
     }
     getButton()
