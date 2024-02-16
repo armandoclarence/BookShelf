@@ -194,7 +194,7 @@ searchBook.addEventListener('submit',function(e){
     let booksShelf = JSON.parse(localStorage.getItem(shelfKey))
     let [...booksArticle] = document.querySelectorAll('.book_item')
     let books = booksShelf.filter(book => 
-       book.title.toLowerCase().includes(title.toLowerCase()) 
+        book.title.toLowerCase().includes(title.toLowerCase()) 
     )
     booksArticle.map(bookArticle => {
         let parent = bookArticle.parentNode

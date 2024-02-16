@@ -37,6 +37,7 @@
 						<input
 							id="inputBookTitle"
 							type="text"
+							name="title"
 							required
 						/>
 					</div>
@@ -45,6 +46,7 @@
 						<input
 							id="inputBookAuthor"
 							type="text"
+							name="author"
 							required
 						/>
 					</div>
@@ -55,6 +57,7 @@
 							min="1900"
 							max="2023"
 							type="number"
+							name="year"
 							required
 						/>
 					</div>
@@ -63,11 +66,13 @@
 						<input
 							id="inputBookIsComplete"
 							type="checkbox"
+							name="completedRead"
 						/>
 					</div>
 					<button
 						id="bookSubmit"
 						type="submit"
+						name="ongoingRead"
 					>
 						Masukkan Buku ke rak <span>Belum selesai dibaca</span>
 					</button>
@@ -139,7 +144,7 @@
 				<div class="yearInput">
 					<label for="year">Tahun :</label>
 					<input
-						type="number"
+						type="date"
 						name="year"
 						id="year"
 						min="1900"
