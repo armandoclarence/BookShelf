@@ -1,170 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta
-			name="viewport"
-			content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-		/>
-		<meta
-			http-equiv="X-UA-Compatible"
-			content="ie=edge"
-		/>
-		<title>Bookshelf Apps</title>
-		<link
-			rel="preconnect"
-			href="https://fonts.gstatic.com"
-		/>
-		<link
-			href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
-			rel="stylesheet"
-		/>
-		<link
-			rel="stylesheet"
-			href="style.css"
-		/>
-	</head>
-	<body>
-		<header class="head_bar">
-			<h1 class="head_bar__title">Bookshelf Apps</h1>
-		</header>
-		<main>
-			<section class="input_section">
-				<h2>Masukkan Buku Baru</h2>
-				<form id="inputBook">
-					<div class="input">
-						<label for="inputBookTitle">Judul</label>
-						<input
-							id="inputBookTitle"
-							type="text"
-							name="title"
-							required
-						/>
-					</div>
-					<div class="input">
-						<label for="inputBookAuthor">Penulis</label>
-						<input
-							id="inputBookAuthor"
-							type="text"
-							name="author"
-							required
-						/>
-					</div>
-					<div class="input">
-						<label for="inputBookYear">Tahun</label>
-						<input
-							id="inputBookYear"
-							min="1900"
-							max="2023"
-							type="number"
-							name="year"
-							required
-						/>
-					</div>
-					<div class="input_inline">
-						<label for="inputBookIsComplete">Selesai dibaca</label>
-						<input
-							id="inputBookIsComplete"
-							type="checkbox"
-							name="completedRead"
-						/>
-					</div>
-					<button
-						id="bookSubmit"
-						type="submit"
-						name="ongoingRead"
-					>
-						Masukkan Buku ke rak <span>Belum selesai dibaca</span>
-					</button>
-				</form>
-			</section>
-			<section class="search_section">
-				<h2>Cari Buku (Opsional)</h2>
-				<form id="searchBook">
-					<label for="searchBookTitle">Judul</label>
-					<input
-						id="searchBookTitle"
-						type="text"
-					/>
-					<button
-						id="searchSubmit"
-						type="submit"
-					>
-						Cari
-					</button>
-				</form>
-			</section>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="BookShelf" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Bookshelf Apps</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="head_bar">
+      <h1>Bookshelf Apps</h1>
+      <div class="toggle light">
+        <button>
+          <img src="assets/img/sun.png" alt="light" />
+          <img src="assets/img/moon.png" alt="dark" />
+        </button>
+        <span>Dark mode</span>
+      </div>
+    </header>
+    <main>
+      <section class="input_section">
+        <h2>Masukkan Buku Baru</h2>
+        <form id="inputBook">
+          <div class="input">
+            <label for="inputBookTitle">Judul</label>
+            <input id="inputBookTitle" type="text" name="title" required />
+          </div>
+          <div class="input">
+            <label for="inputBookAuthor">Penulis</label>
+            <input id="inputBookAuthor" type="text" name="author" required />
+          </div>
+          <div class="input">
+            <label for="inputBookYear">Tahun</label>
+            <input
+              id="inputBookYear"
+              min="1900"
+              max="2023"
+              type="number"
+              name="year"
+              required
+            />
+          </div>
+          <div class="input_inline">
+            <label for="inputBookIsComplete">Selesai dibaca</label>
+            <input
+              id="inputBookIsComplete"
+              type="checkbox"
+              name="completedRead"
+            />
+          </div>
+          <button id="bookSubmit" type="submit">
+            Masukkan Buku ke rak <span>Belum selesai dibaca</span>
+          </button>
+        </form>
+      </section>
+      <section class="search_section">
+        <h2>Cari Buku</h2>
+        <form id="searchBook">
+          <label for="searchBookTitle">Judul</label>
+          <input id="searchBookTitle" type="text" />
+          <button id="searchSubmit" type="submit"> Cari </button>
+        </form>
+      </section>
 
-			<section class="book_shelf">
-				<h2>Belum selesai dibaca</h2>
+      <section class="book_shelf">
+        <h2>Belum selesai dibaca</h2>
 
-				<div
-					id="incompleteBookshelfList"
-					class="book_list"
-				></div>
-			</section>
+        <div id="incompleteBookshelfList" class="book_list"></div>
+      </section>
 
-			<section class="book_shelf">
-				<h2>Selesai dibaca</h2>
+      <section class="book_shelf">
+        <h2>Selesai dibaca</h2>
 
-				<div
-					id="completeBookshelfList"
-					class="book_list"
-				></div>
-			</section>
-		</main>
-		<dialog data-modal>
-			<p>Apakah anda yakin ingin menghapus buku ini?</p>
-			<button class="modalRemoveButton">Hapus Buku</button>
-			<button class="modalEditButton">Edit Buku</button>
-		</dialog>
+        <div id="completeBookshelfList" class="book_list"></div>
+      </section>
+    </main>
+    <dialog data-modal>
+      <p>Apakah anda yakin ingin menghapus buku ini?</p>
+      <button class="modalRemoveButton">Hapus Buku</button>
+      <button class="modalEditButton">Edit Buku</button>
+    </dialog>
 
-		<dialog data-modal-edit>
-			<h2>Edited Book</h2>
-			<form
-				id="editForm"
-				method="dialog"
-			>
-				<div class="titleInput">
-					<label for="title">Judul :</label>
-					<input
-						type="text"
-						name="title"
-						id="title"
-					/>
-				</div>
-				<div class="authorInput">
-					<label for="author">Penulis :</label>
-					<input
-						type="text"
-						name="author"
-						id="author"
-					/>
-				</div>
-				<div class="yearInput">
-					<label for="year">Tahun :</label>
-					<input
-						type="date"
-						name="year"
-						id="year"
-						min="1900"
-						max="2023"
-					/>
-				</div>
-				<button
-					id="submit"
-					type="submit"
-				>
-					Submit
-				</button>
-				<button
-					id="cancel"
-					type="reset"
-				>
-					Cancel
-				</button>
-			</form>
-		</dialog>
-		<script src="main.js"></script>
-	</body>
+    <dialog data-modal-edit>
+      <h2>Edited Book</h2>
+      <form id="editForm" method="dialog">
+        <div class="input">
+          <label for="title">Judul :</label>
+          <input type="text" name="title" id="title" />
+        </div>
+        <div class="input">
+          <label for="author">Penulis :</label>
+          <input type="text" name="author" id="author" />
+        </div>
+        <div class="input">
+          <label for="year">Tahun :</label>
+          <input type="date" name="year" id="year" min="1900" max="2023" />
+        </div>
+        <button id="submit" type="submit"> Submit </button>
+        <button id="cancel" type="reset"> Cancel </button>
+      </form>
+    </dialog>
+    <script src="main.js"></script>
+  </body>
 </html>
