@@ -21,11 +21,28 @@
     --primary-color: #9eb7e6;
     --border-color: white;
     --text-color: #161414;
-    --danger-color: rgb(116, 38, 38);
+    --danger-color: rgb(255, 119, 119);
+    --danger-hover-color: darkred;
     --primary-button-color: rgb(79, 198, 79);
+    --primary-button-hover-color: darkgreen;
     --button-hover-color: #144091;
     --primary-input-color: #0c0a0a;
   }
+  html {
+    scrollbar-color: rgb(100 149 237 / 0.4) var(--primary-color);
+  }
+}
+
+.dark-mode {
+  --primary-color: #9eb7e6;
+  --border-color: white;
+  --text-color: #161414;
+  --danger-color: rgb(255, 119, 119);
+  --danger-hover-color: darkred;
+  --primary-button-color: rgb(79, 198, 79);
+  --primary-button-hover-color: darkgreen;
+  --button-hover-color: #144091;
+  --primary-input-color: #0c0a0a;
 }
 
 html {
@@ -36,6 +53,7 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-size: 16px;
   background-color: var(--text-color);
+  color: var(--border-color);
 }
 
 button {
@@ -49,7 +67,6 @@ button {
   padding: 12px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
   background-color: var(--primary-color);
   color: var(--text-color);
 }
@@ -75,13 +92,14 @@ button {
   background-color: var(--primary-input-color);
 }
 
+.toggle.dark > button:hover,
 .toggle.light > button:hover {
   background-color: var(--button-hover-color);
 }
 
-.toggle.light > button:hover img:first-child {
-  animation: slide-right 0.5s ease-in forwards;
+.toggle.light > button:focus-visible img:first-child {
   background-color: var(--primary-input-color);
+  animation: slide-right 0.5s .5s ease-in;
 }
 
 .toggle.light > button img:first-child {
@@ -90,8 +108,9 @@ button {
   border-radius: 10px;
 }
 
-.toggle.dark > button:hover img:last-child {
+.toggle.dark > button:focus-visible img:last-child {
   background-color: var(--primary-input-color);
+  animation: slide-left 0.5s ease-in;
 }
 
 .toggle.dark > button img:last-child {
@@ -107,6 +126,17 @@ button {
   100% {
     opacity: 0;
     transform: translateX(99px);
+  }
+}
+
+@keyframes slide-left {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-99px);
   }
 }
 
