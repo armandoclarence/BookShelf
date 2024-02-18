@@ -29,7 +29,7 @@
     --primary-input-color: #0c0a0a;
   }
   html {
-    scrollbar-color: rgb(100 149 237 / 0.4) var(--primary-color);
+    scrollbar-color: rgba(100, 149, 237, 0.4) var(--primary-color);
   }
 }
 
@@ -43,6 +43,18 @@
   --primary-button-hover-color: darkgreen;
   --button-hover-color: #144091;
   --primary-input-color: #0c0a0a;
+}
+
+.light-mode {
+  --primary-color: #143f90;
+  --border-color: #161414;
+  --text-color: white;
+  --danger-color: darkred;
+  --danger-hover-color: rgb(255, 119, 119);
+  --primary-button-color: darkgreen;
+  --primary-button-hover-color: rgb(79, 198, 79);
+  --button-hover-color: #9eb7e6;
+  --primary-input-color: #ffffff86;
 }
 
 html {

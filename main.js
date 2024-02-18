@@ -1,32 +1,43 @@
 const shelfKey = 'bookshelf'
-const themeKey = 'theme'
 const [incompleteBookList, completeBookList] = document.querySelectorAll(".book_list")
 const inputBook = document.querySelector("#inputBook")
 const modal = document.querySelector("[data-modal]")
 const modalEdit = document.querySelector("[data-modal-edit]")
 const books = JSON.parse(localStorage.getItem(shelfKey)) || localStorage.setItem(shelfKey, '[]')  
 const toggleTheme = document.querySelector('.toggle')
-const preferDark = (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
-const preferLight = (window.matchMedia('(prefers-color-scheme: light)').matches ? 'dark' : 'light')
+const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
-console.log(preferLight)
-// toggleTheme.classList.toggle(preferDark)
-// toggleTheme.classList.toggle(preferLight)
+function toggleDarkModePreference() {
+  console.log(currentTheme)
+  if(currentTheme === 'light') {
+    document.body.classList.toggle('dark-mode');
+    document.body.classList.remove('light-mode');
+  }else if(currentTheme === 'dark') {
+    document.body.classList.toggle('light-mode');
+    document.body.classList.remove('dark-mode');
+  }
+  toggleTheme.classList.toggle('dark')
+  toggleTheme.classList.toggle('light')
 
-
-function preferenceDark() {
-  const currentTheme = localStorage.getItem(themeKey) || preferDark
-  
-  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-  localStorage.setItem(themeKey, currentTheme);
-  
-  toggleTheme.classList.toggle(preferDark);
-  toggleTheme.classList.toggle(preferLight);
 }
 
-toggleTheme.addEventListener('click', preferenceDark)
-window.addEventListener('change', preferenceDark)
-window.addEventListener('load', preferenceDark)
+function checkDarkModePreference() {
+  if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+    console.log('User prefers dark mode');
+    toggleTheme.classList.toggle('dark')
+    toggleTheme.classList.toggle('light')
+  } else {
+    console.log('User prefers light mode');
+    toggleTheme.classList.remove('dark')
+    toggleTheme.classList.add('light')
+  }
+}
+
+checkDarkModePreference();
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', checkDarkModePreference);
+
+toggleTheme.addEventListener('click', toggleDarkModePreference)
 
 const id = generateId()
 
