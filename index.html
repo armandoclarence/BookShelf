@@ -2,24 +2,47 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="BookShelf" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0"
+    />
+    <meta
+      name="description"
+      content="BookShelf"
+    />
+    <meta
+      http-equiv="X-UA-Compatible"
+      content="ie=edge"
+    />
     <title>Bookshelf Apps</title>
-    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+    />
     <link
       href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="style.css"
+    />
   </head>
   <body>
     <header class="head_bar">
       <h1>Bookshelf Apps</h1>
-      <div class="toggle light">
+      <div class="toggle">
         <button>
-          <img class="sun" src="assets/img/sun.png" alt="light" />
-          <img class="moon" src="assets/img/moon.png" alt="dark" />
+          <img
+            class="sun"
+            src="assets/img/sun.png"
+            alt="light"
+          />
+          <img
+            class="moon"
+            src="assets/img/moon.png"
+            alt="dark"
+          />
         </button>
         <span>Dark mode</span>
       </div>
@@ -30,11 +53,21 @@
         <form id="inputBook">
           <div class="input">
             <label for="inputBookTitle">Judul</label>
-            <input id="inputBookTitle" type="text" name="title" required />
+            <input
+              id="inputBookTitle"
+              type="text"
+              name="title"
+              required
+            />
           </div>
           <div class="input">
             <label for="inputBookAuthor">Penulis</label>
-            <input id="inputBookAuthor" type="text" name="author" required />
+            <input
+              id="inputBookAuthor"
+              type="text"
+              name="author"
+              required
+            />
           </div>
           <div class="input">
             <label for="inputBookYear">Tahun</label>
@@ -55,7 +88,10 @@
               name="completedRead"
             />
           </div>
-          <button id="bookSubmit" type="submit">
+          <button
+            id="bookSubmit"
+            type="submit"
+          >
             Masukkan Buku ke rak <span>Belum selesai dibaca</span>
           </button>
         </form>
@@ -64,21 +100,35 @@
         <h2>Cari Buku</h2>
         <form id="searchBook">
           <label for="searchBookTitle">Judul</label>
-          <input id="searchBookTitle" type="text" />
-          <button id="searchSubmit" type="submit"> Cari </button>
+          <input
+            id="searchBookTitle"
+            type="text"
+          />
+          <button
+            id="searchSubmit"
+            type="submit"
+          >
+            Cari
+          </button>
         </form>
       </section>
 
       <section class="book_shelf">
         <h2>Belum selesai dibaca</h2>
 
-        <div id="incompleteBookshelfList" class="book_list"></div>
+        <div
+          id="incompleteBookshelfList"
+          class="book_list"
+        ></div>
       </section>
 
       <section class="book_shelf">
         <h2>Selesai dibaca</h2>
 
-        <div id="completeBookshelfList" class="book_list"></div>
+        <div
+          id="completeBookshelfList"
+          class="book_list"
+        ></div>
       </section>
     </main>
     <dialog data-modal>
@@ -89,21 +139,48 @@
 
     <dialog data-modal-edit>
       <h2>Edited Book</h2>
-      <form id="editForm" method="dialog">
+      <form
+        id="editForm"
+        method="dialog"
+      >
         <div class="input">
           <label for="title">Judul :</label>
-          <input type="text" name="title" id="title" />
+          <input
+            type="text"
+            name="title"
+            id="title"
+          />
         </div>
         <div class="input">
           <label for="author">Penulis :</label>
-          <input type="text" name="author" id="author" />
+          <input
+            type="text"
+            name="author"
+            id="author"
+          />
         </div>
         <div class="input">
           <label for="year">Tahun :</label>
-          <input type="number" name="year" id="year" min="1900" max="2023" />
+          <input
+            type="number"
+            name="year"
+            id="year"
+            min="1900"
+            max="2023"
+          />
         </div>
-        <button id="submit" type="submit"> Submit </button>
-        <button id="cancel" type="reset"> Cancel </button>
+        <button
+          id="submit"
+          type="submit"
+        >
+          Submit
+        </button>
+        <button
+          id="cancel"
+          type="reset"
+        >
+          Cancel
+        </button>
       </form>
     </dialog>
     <script src="main.js"></script>

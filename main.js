@@ -5,31 +5,21 @@ const modal = document.querySelector("[data-modal]")
 const modalEdit = document.querySelector("[data-modal-edit]")
 const books = JSON.parse(localStorage.getItem(shelfKey)) || localStorage.setItem(shelfKey, '[]')  
 const toggleTheme = document.querySelector('.toggle')
-const currentTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 
 function toggleDarkModePreference() {
-  console.log(currentTheme)
-  if(currentTheme === 'light') {
-    document.body.classList.toggle('dark-mode');
-    document.body.classList.remove('light-mode');
-  }else if(currentTheme === 'dark') {
-    document.body.classList.toggle('light-mode');
-    document.body.classList.remove('dark-mode');
-  }
+  document.documentElement.classList.toggle('dark-mode');
   toggleTheme.classList.toggle('dark')
-  toggleTheme.classList.toggle('light')
-
 }
 
 function checkDarkModePreference() {
   if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
     console.log('User prefers dark mode');
-    toggleTheme.classList.toggle('dark')
-    toggleTheme.classList.toggle('light')
+    toggleTheme.classList.add('dark')
+    document.documentElement.classList.add('dark-mode');
   } else {
     console.log('User prefers light mode');
     toggleTheme.classList.remove('dark')
-    toggleTheme.classList.add('light')
+    document.documentElement.classList.remove('dark-mode');
   }
 }
 
@@ -236,12 +226,7 @@ searchBook.addEventListener('submit',function(e){
     const parent = bookArticle.parentNode
     parent.removeChild(bookArticle)
   })
-  if(title){
-    books.map(book => addBook(book))
-  }
-  else {
-    booksShelf.map(bookShelf => addBook(bookShelf))
-  }
+  books.map(book => addBook(book))
   getButton()
 })
 
