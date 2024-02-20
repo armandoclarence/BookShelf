@@ -6,6 +6,7 @@ const modalEdit = document.querySelector("[data-modal-edit]")
 const books = JSON.parse(localStorage.getItem(shelfKey)) || localStorage.setItem(shelfKey, '[]')  
 const toggleTheme = document.querySelector('.toggle')
 
+// dark mode
 function toggleDarkModePreference() {
   document.documentElement.classList.toggle('dark-mode');
   toggleTheme.classList.toggle('dark')
@@ -29,7 +30,7 @@ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', che
 
 toggleTheme.addEventListener('click', toggleDarkModePreference)
 
-const id = generateId()
+// bookshelf
 
 function getBookShelf(){
   if(books){
@@ -39,66 +40,76 @@ function getBookShelf(){
   }
 }
 
+function updateCompleted() {
+  const id = this.parentNode.parentNode.id
+  const {isCompleted} = getBookById(id)
+  const updatedBook = update(id,!isCompleted)
+  console.log(updatedBook)
+  updatedBook.map(book => book.id === parseInt(id) ? changeBookShelf(book,id) : '')
+  localStorage.setItem(shelfKey, JSON.stringify(updatedBook))
+}
+
+function updateRemoveButton() {
+  const id = this.parentNode.parentNode.id
+  const book = getBookById(id)
+  getModal(book,id)
+
+}
+
 function getButton(){
   const [...buttonIsCompletes] = document.querySelectorAll('.green')
   const [...removeBookButtons] = document.querySelectorAll('.red')
+  console.log(buttonIsCompletes, removeBookButtons)
   buttonIsCompletes.map(buttonIsComplete => {
-    buttonIsComplete.addEventListener('click',function(e){
-      const id = this.parentNode.parentNode.id
-      const book = getBookById(id)
-      let {isComplete} = book
-      console.log(book)
-      isComplete = !isComplete
-      console.log(isComplete)
-      const isCompleted = {isComplete}
-      const updateBook = update(books, id, isCompleted)
-      updateBook.map(book => book.id === parseInt(id) ? changeBookShelf(book,id) : '')
-      localStorage.setItem(shelfKey, JSON.stringify (updateBook))
-      e.preventDefault()
-    })
+    console.log(buttonIsComplete)
+    buttonIsComplete.addEventListener('click', updateCompleted)
   })
   removeBookButtons.map(removeButton => {
-    removeButton.addEventListener('click',function(e){
-      const id = this.parentNode.parentNode.id
-      const book = getBookById(id)
-      getModal(book,id)
-      e.preventDefault()
-    })
+    removeButton.addEventListener('click',updateRemoveButton)
   })
 }
 
-window.addEventListener('load', function(e){
+window.addEventListener('load', function(){
   getBookShelf()
   getButton()
 });
 
 inputBook.addEventListener("submit",function(e){
   e.preventDefault()
+  const id = generateId()
   const formBook = new FormData(inputBook)
-  const titleBook = formBook.get('title') 
-  const authorBook = formBook.get('author') 
-  const yearBook = formBook.get('year') 
-  const isCompleteBook = formBook.get('completedRead') === 'on' ? true : false;
+  const titleBook = formBook.get('title')
+  const authorBook = formBook.get('author')
+  const yearBook = formBook.get('year')
+  const isCompleteBook = formBook.get('completedRead') === 'on'
+  if(containsOnlySpaces(titleBook) || containsOnlySpaces(author) || containsOnlySpaces(yearBook)) {
+    alert('input must not contains only spaces')
+    return
+  }
   const book = generateObjectBook(id,titleBook,authorBook,yearBook,isCompleteBook)
   books.push(book)
   localStorage.setItem(shelfKey, JSON.stringify(books))
   addBook(book)
   getButton()
-  console.log(formBook)
-  console.log(titleBook, authorBook, yearBook, isCompleteBook)
+  inputBook.reset()
 })
+
+function containsOnlySpaces(value) {
+  const regex = /^\s*$/;
+  return regex.test(value);
+}
 
 function generateId(){
   return +new Date
 }
 
-function generateObjectBook(id,title,author,year,isComplete){
+function generateObjectBook(id,title,author,year,isCompleted){
   return {
     id,
     title,
     author,
     year,
-    isComplete
+    isCompleted
   }
 }
 
@@ -106,6 +117,7 @@ function editBook(book,id){
   const [titleInput, authorInput, yearInput, isCompleteInput] = document.querySelectorAll("#editForm input")
   const submitButton = document.querySelector("#editForm")
   const cancelButton = document.querySelector("#cancel")
+  console.log(titleInput, authorInput)
 
   submitButton.addEventListener('submit', function(){
     let {title, author, year} = book
@@ -115,7 +127,7 @@ function editBook(book,id){
     title = titleEdited || title
     author = authorEdited || author
     year = yearEdited || year
-    const updated = update(books, id, {title, author, year})
+    // const updated = update(books, id, {title, author, year})
     localStorage.setItem(shelfKey, JSON.stringify(updated))
     const [...titlesBook] = document.querySelectorAll(`article h3`)
     const titleBook = titlesBook.find(title => title.parentNode.id === parseInt(id))
@@ -127,18 +139,19 @@ function editBook(book,id){
     authorBook.innerText = `Penulis: ${author}`
     yearBook.innerText = `Tahun: ${year}`
   })
-  cancelButton.addEventListener('click',function(e){
-    e.preventDefault()
+  cancelButton.addEventListener('click',function(){
     modalEdit.close()
     modal.close()
   })
 }
 
 function changeBookShelf(book, id) {
+  const books = JSON.parse(localStorage.getItem(shelfKey))
   const booksItem = document.querySelectorAll('article.book_item')
   booksItem.forEach(book => {
     if (book.id === parseInt(id)) book.parentNode.removeChild(book)
   })
+  console.log(books)
   addBook(book)
   const buttonIsCompletes = document.querySelectorAll('.green')
   const removeBookButtons = document.querySelectorAll('.red')
@@ -148,17 +161,9 @@ function changeBookShelf(book, id) {
   const removeBookButton = [...removeBookButtons].find(removeBookButton => {
     return removeBookButton.id === parseInt(id)
   })
-  buttonIsComplete.addEventListener('click',function(e){
-    const {isComplete} = book
-    isComplete = !isComplete
-    const isCompleted = {isComplete}
-    const updateBook = update(books, id, isCompleted)
-    updateBook.map(book => book.id === parseInt(id) ? changeBookShelf(book,id) : '')
-    localStorage.setItem(shelfKey, JSON.stringify (updateBook))
-  })
-  removeBookButton.addEventListener('click',function(e){
+  buttonIsComplete.addEventListener('click', updateCompleted)
+  removeBookButton.addEventListener('click',function(){
     getModal(book, id)
-    e.preventDefault()
   })
 }
 
@@ -191,7 +196,7 @@ function addBook(book){
   }else{
     buttonIsCompleted.innerText = "Selesai dibaca"
     incompleteBookList.appendChild(article)
-}
+  }
 }
 
 function getBookById(id) {
@@ -199,8 +204,8 @@ function getBookById(id) {
   return book
 }
 
-function update(books, id, updatedData) {
-  return books.map(book => book.id === parseInt(id) ? {...book,...updatedData} : book)
+function update(id, isCompleted) {
+  return books.map(book => book.id === parseInt(id) ? {...book,isCompleted} : book)
 }  
 
 function removeBook(book,id){
