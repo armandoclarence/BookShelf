@@ -8,12 +8,13 @@
   --primary-color: #143f90;
   --border-color: #161414;
   --text-color: white;
+  --placeholder-color: #1b171780;
   --danger-color: darkred;
   --danger-hover-color: rgb(255, 119, 119);
   --primary-button-color: darkgreen;
   --primary-button-hover-color: rgb(79, 198, 79);
   --button-hover-color: #9eb7e6;
-  --primary-input-color: #ffffff86;
+  --primary-input-color: #ffffff83;
   --scrollbar-color: var(--primary-color) var(--button-hover-color);
 }
 
@@ -21,12 +22,13 @@
   --primary-color: #9eb7e6;
   --border-color: white;
   --text-color: #161414;
+  --placeholder-color: #ffffff83;
   --danger-color: rgb(255, 119, 119);
   --danger-hover-color: darkred;
   --primary-button-color: rgb(79, 198, 79);
   --primary-button-hover-color: darkgreen;
   --button-hover-color: #143f90;
-  --primary-input-color: #0c0a0a;
+  --primary-input-color: #1b171780;
   --scrollbar-color: var(--primary-color) var(--button-hover-color);
 }
 
@@ -39,6 +41,16 @@ body {
   font-size: 16px;
   background-color: var(--text-color);
   color: var(--border-color);
+}
+
+input {
+  caret-color: var(--primary-color);
+  color: var(--border-color);
+  background-color: var(--primary-input-color);
+}
+
+input::placeholder {
+  color: var(--placeholder-color);
 }
 
 button {
@@ -174,10 +186,6 @@ form > button {
   font-weight: bold;
 }
 
-form > input {
-  background-color: var(--primary-input-color);
-}
-
 .input_section > form > .input > input {
   display: block;
   width: 100%;
@@ -292,6 +300,8 @@ dialog .modalRemoveButton:hover,
 }
 
 dialog[open] {
+  background-color: var(--text-color);
+  color: var(--border-color);
   margin: auto;
   border-width: 1px;
 }
