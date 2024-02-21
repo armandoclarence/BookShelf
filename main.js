@@ -72,7 +72,7 @@ function updateBook(id, updatedBook) {
 function removeBook(id) {
   const books = JSON.parse(localStorage.getItem(shelfKey))
   const bookShelf = books.filter(book => book.id !== parseInt(id))
-  removeBookFromPage(books, id)
+  removeBookFromPage(id)
   localStorage.setItem(shelfKey, JSON.stringify(bookShelf))
 }
 
@@ -115,7 +115,6 @@ function getEventButton(){
   })
 }
 
-
 inputBook.addEventListener("submit",function(e){
   e.preventDefault()
   const id = generateId()
@@ -136,12 +135,11 @@ inputBook.addEventListener("submit",function(e){
   inputBook.reset()
 })
 
-
-function editBook(book,id){
+function editBook(book){
   const [titleInput, authorInput, yearInput, isCompleteInput] = document.querySelectorAll("#editForm input")
   const submitButton = document.querySelector("#editForm")
   const cancelButton = document.querySelector("#cancel")
-  const { title, author, year, isCompleted } = book
+  const { title, author, year, isCompleted, id } = book
   titleInput.value = title
   authorInput.value = author
   yearInput.value = year
@@ -206,7 +204,6 @@ function addBook(book){
   }
 }
 
-
 const searchInput = document.querySelector('#searchBookTitle')
 const searchBook = document.querySelector('#searchBook')
 searchBook.addEventListener('submit',function(e){
@@ -216,11 +213,16 @@ searchBook.addEventListener('submit',function(e){
   const booksItem = books.filter(book => 
     book.title.toLowerCase().includes(title.toLowerCase()) 
   )
+  console.log(booksItem)
+  console.log('hey',title.trim(),'yeah')
+  if(title.trim() === '') {
+    getBookShelf()
+  }else{
+    booksItem.map(book => addBook(book))
+  }
   booksArticle.map(bookArticle => {
-    const parent = bookArticle.parentNode
-    parent.removeChild(bookArticle)
+    bookArticle.parentNode.removeChild(bookArticle)
   })
-  books.map(book => addBook(book))
   getEventButton()
 })
 
@@ -234,7 +236,7 @@ function getModal(book,id){
   })
   modalEditButton.addEventListener('click',function() {
     modal.close()
-    editBook(book, id)
+    editBook(book)
     modalEdit.showModal()
   })
 }
