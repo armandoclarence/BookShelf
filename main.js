@@ -213,6 +213,8 @@ searchBook.addEventListener('submit',function(e){
   const booksItem = books.filter(book => 
     book.title.toLowerCase().includes(title.toLowerCase()) 
   )
+  console.log(booksItem)
+  console.log('hey',title.trim(),'yeah')
   if(title.trim() === '') {
     getBookShelf()
   }else{
