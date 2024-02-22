@@ -148,11 +148,14 @@ function editBook(book){
     const updatedBook = updateBook(id, { title: titleInput.value, author: authorInput.value, year: yearInput.value,isCompleted: isCompleteInput.checked })
     const { title, author, year, isCompleted } = updatedBook.find(book => book.id === parseInt(id))
     const [...titlesBook] = document.querySelectorAll(`article h3`)
-    const titleBook = titlesBook.find(title => title.parentNode.id === id)
+    console.log(typeof id)
+    const titleBook = titlesBook.find(title => title.parentNode.id === String(id))
     const [...authorsBook] = document.querySelectorAll(`article .author`)
-    const authorBook = authorsBook.find(author => author.parentNode.id === id)
+    const authorBook = authorsBook.find(author => author.parentNode.id === String(id))
     const [...yearsBook] = document.querySelectorAll(`article .year`)
-    const yearBook = yearsBook.find(year => year.parentNode.id === id)
+    const yearBook = yearsBook.find(year => year.parentNode.id === String(id))
+    console.log(title,author,year)
+    console.log(titleBook)
     titleBook.innerText = title
     authorBook.innerText = `Penulis: ${author}`
     yearBook.innerText = `Tahun: ${year}`
@@ -229,12 +232,14 @@ function getModal(book,id){
   const modalRemoveButton = document.querySelector(".modalRemoveButton")
   const modalEditButton = document.querySelector(".modalEditButton")
   modalRemoveButton.addEventListener('click', function(){
-    removeBook(id)
     modal.close()
+    removeBook(id)
   })
   modalEditButton.addEventListener('click',function() {
     modal.close()
+    if(!modalEdit.open){
+      modalEdit.showModal()
+    }
     editBook(book)
-    modalEdit.showModal()
   })
 }
